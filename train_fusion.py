@@ -276,8 +276,13 @@ def main(args):
 
     if args.SYNC_BN and args.nprocs > 1:
         model = nn.SyncBatchNorm.convert_sync_batchnorm(model)
-    model = nn.parallel.DistributedDataParallel(model, device_ids=[args.gpu], find_unused_parameters=False)
-    model_without_ddp = model.module
+        model = nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank], find_unused_parameters=False)
+        model_without_ddp = model.module
+    elif args.nprocs > 1:
+        model = nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank], find_unused_parameters=False)
+        model_without_ddp = model.module
+    else:
+        model_without_ddp = model
 
     mixup_fn = None
     mixup_active = args.mixup > 0 or args.cutmix > 0. or args.cutmix_minmax is not None
