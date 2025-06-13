@@ -498,7 +498,8 @@ def train_one_epoch(train_queue, model, criterion, optimizer, epoch, local_rank,
         #---------------------
         # Meter performance
         #---------------------
-        torch.distributed.barrier()
+        if args.distributed:
+            torch.distributed.barrier()
         globals()['Acc_rgbd'], globals()['Acc_rgbd_top5'] = accuracy(logits+logit_K, ori_target, topk=(1, 5))
         globals()['Acc_all'], globals()['Acc_all_top5'] = accuracy((output[0] + output[1] + logits + logit_K)/4.0, ori_target, topk=(1, 5))
         globals()['Acc_s'], _ = accuracy(xs+K_xs, ori_target, topk=(1, 5))
@@ -532,17 +533,7 @@ def train_one_epoch(train_queue, model, criterion, optimizer, epoch, local_rank,
 
     return meter_dict['Acc_all'].avg, meter_dict['Total_loss'].avg, meter_dict
 
-@torch.no_grad()
-def concat_all_gather(tensor):
-    """
-    Performs all_gather operation on the provided tensors.
-    *** Warning ***: torch.distributed.all_gather has no gradient.
-    """
-    tensors_gather = [torch.ones_like(tensor)
-        for _ in range(torch.distributed.get_world_size())]
-    torch.distributed.all_gather(tensors_gather, tensor, async_op=False)
-    output = torch.cat(tensors_gather, dim=0)
-    return output
+# concat_all_gather function is imported from utils.py
 
 @torch.no_grad()
 def infer(valid_queue, model, criterion, local_rank, epoch, device, captuer, obtain_softmax_score=True):
@@ -595,7 +586,8 @@ def infer(valid_queue, model, criterion, local_rank, epoch, device, captuer, obt
         preds[0] += torch.argmax((logits+logit_K)/2., dim=1).cpu().tolist()
         preds[1] += torch.argmax((logits + logit_K + output[0] + output[1])/4., dim=1).cpu().tolist()
 
-        torch.distributed.barrier()
+        if args.distributed:
+            torch.distributed.barrier()
         globals()['Acc_r'], globals()['Acc_r_top5'] = accuracy(logits, target, topk=(1, 5))
         globals()['Acc_d'], globals()['Acc_d_top5'] = accuracy(logit_K, target, topk=(1, 5))
         globals()['Acc_rgbd'], globals()['Acc_rgbd_top5'] = accuracy((logits+logit_K)/2., target, topk=(1, 5))
