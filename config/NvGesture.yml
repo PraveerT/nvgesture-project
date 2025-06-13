@@ -26,7 +26,7 @@ common:
   loss_lamdb: [ 1, 0.5, 0.5, 0.5 ]
 
 model:
-  Network: DSNV2 # e.g., DSNV2 or FusionNet
+  Network: FusionNet # e.g., DSNV2 or FusionNet
   pretrained: ''  # Will be set via --finetune argument
   resumelr: ''
   SYNC_BN: 1
@@ -37,6 +37,8 @@ model:
   frp: False  # CRITICAL: Missing parameter
   SEHeads: 1  # CRITICAL: Missing parameter  
   N: 6  # CRITICAL: Missing parameter - Number of Transformer Blocks
+  scc_depth: 2  # Spatial Complement Complement depth (for FusionNet)
+  tcc_depth: 2  # Temporal Complement Complement depth (for FusionNet)
 
 fusion:
   Network: FusionNet
@@ -47,6 +49,8 @@ fusion:
   knn_attention: 0.7
   sharpness: True
   temp: [ 0.05, 0.08 ]
+  scc_depth: 2  # Spatial Complement Complement depth
+  tcc_depth: 2  # Temporal Complement Complement depth
   #-------Used for fusion network----------
   rgb_checkpoint:  
     cs16: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-16-DTNV2-M/model_best.pth.tar
@@ -73,7 +77,7 @@ DATASET:
   normalization: imagenet
   data_dir: dataset/Nvidia/Processed_frames
   train_split: data/dataset_splits/NvGesture/rgb/train.txt
-  val_split: data/dataset_splits/NvGesture/rgb/test.txt
+  val_split: data/dataset_splits/NvGesture/rgb/valid.txt
   clip_len: 32
   frame_interval: 2
   num_clips: 1
