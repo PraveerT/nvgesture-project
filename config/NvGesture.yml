@@ -53,13 +53,13 @@ fusion:
   tcc_depth: 2  # Temporal Complement Complement depth
   #-------Used for fusion network----------
   rgb_checkpoint:  
-    cs16: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-16-DTNV2-M/model_best.pth.tar
-    cs32: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-32-DTNV2-M/model_best.pth.tar-per-iso 
-    cs64: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-64-DTNV2-M/model_best.pth.tar-loss-refine 
+    cs16: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs32: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs64: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
   depth_checkpoint:
-    cs16: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-16-DTNV2-K/model_best.pth.tar-per-iso
-    cs32: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-32-DTNV2-K/model_best.pth.tar-per-iso
-    cs64: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-64-DTNV2-K/model_best.pth.tar-pre-89.24 
+    cs16: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs32: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs64: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
 
 dataset:
   flip: 0.0  # IMPORTANT: No horizontal flipping for gestures (left/right matters!)
