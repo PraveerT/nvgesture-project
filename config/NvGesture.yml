@@ -66,11 +66,6 @@ dataset:
   crop_size: 224
   sample_size: 224
   sample_window: 1
-
-# Loss
-loss:
-  name: SoftCE
-  labelsmooth: True
   
 # Dataset
 DATASET:
@@ -133,11 +128,10 @@ MODEL:
   loss_func: soft_cross_entropy
   dropout_rate: 0.5
   num_classes: 25  # NvGesture has 25 classes
-  
-# Distillation (as per official example)
-distill: 0.2
 
-# Augmentation hyperparameters (matching official IsoGD example)
-smprob: 0.2
-mixup: 0.8  
-shufflemix: 0.3
+# Additional parameters
+AUGMENTATION:
+  distill: 0.2
+  smprob: 0.2
+  mixup: 0.8  
+  shufflemix: 0.3
