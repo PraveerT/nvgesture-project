@@ -141,9 +141,15 @@ class Datasets(Dataset):
             centers.append(center)
 
         finall_center = np.int0(np.array(centers))
-        c_x = min(finall_center[:, 0])
-        c_y = min(finall_center[:, 1])
-        center = (c_x, c_y)
+        
+        # Handle case when no valid contours are found
+        if len(centers) == 0 or finall_center.ndim == 1:
+            # Use image center as fallback
+            center = (w2 // 2, h2 // 2)
+        else:
+            c_x = min(finall_center[:, 0])
+            c_y = min(finall_center[:, 1])
+            center = (c_x, c_y)
 
         crop_x, crop_y = 320, 240
         left = center[0] - crop_x // 2 if center[0] - crop_x // 2 > 0 else 0
