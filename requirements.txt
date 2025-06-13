@@ -20,4 +20,4 @@ torchvision==0.12.0+cu113
 tqdm==4.65.0
 vidaug @ git+https://github.com/okankop/vidaug@1c1ddf2640fe4a9171267d64ae5e3bd70c24d54a
 wandb==0.12.21
-einops=
+einops
