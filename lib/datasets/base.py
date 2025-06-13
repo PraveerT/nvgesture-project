@@ -112,7 +112,13 @@ class Datasets(Dataset):
         return rotated
 
     def get_path(self, imgs_path, a):
-        return os.path.join(imgs_path, "%06d.jpg" % a)
+        # Handle different filename formats for RGB and depth
+        if 'depth' in imgs_path:
+            # Depth files start from img_00001.jpg (1-indexed)
+            return os.path.join(imgs_path, "img_%05d.jpg" % (a + 1))
+        else:
+            # RGB files start from 000000.jpg (0-indexed)
+            return os.path.join(imgs_path, "%06d.jpg" % a)
 
     def depthProposess(self, img):
         h2, w2 = img.shape
