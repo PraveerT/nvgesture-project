@@ -379,7 +379,8 @@ def main(args):
             return
 
     for epoch in range(strat_epoch, args.epochs):
-        train_sampler.set_epoch(epoch)
+        if train_sampler is not None:
+            train_sampler.set_epoch(epoch)
         model.drop_path_prob = args.drop_path_prob * epoch / args.epochs
 
         args.epoch = epoch
@@ -396,7 +397,8 @@ def main(args):
             # logging.info(f'train_acc {round(train_acc, 4)}, top-5 {round(meter_dict_train["Acc_top5"].avg, 4)}, train_loss {round(train_obj, 4)}')
             logging.info(f'valid_acc {round(valid_acc, 4)}, best_acc {round(best_acc, 4)}')
 
-            state = {'model': model.module.state_dict(),'optimizer': optimizer.state_dict(), 
+            model_for_save = model.module if hasattr(model, 'module') else model
+            state = {'model': model_for_save.state_dict(),'optimizer': optimizer.state_dict(), 
             'epoch': epoch + 1, 'bestacc': best_acc,
             'scheduler': scheduler.state_dict(),
             'scaler': loss_scaler.state_dict(),
@@ -450,7 +452,8 @@ def train_one_epoch(train_queue, model, criterion, optimizer, epoch, local_rank,
     end = time.time()
     CE = torch.nn.CrossEntropyLoss()
     MSE = torch.nn.MSELoss()
-    rcm_loss = RCM_loss(args, model.module)
+    model_for_rcm = model.module if hasattr(model, 'module') else model
+    rcm_loss = RCM_loss(args, model_for_rcm)
 
     for step, (inputs, heatmap, target, _) in enumerate(train_queue):
         inputs, inputs_aux = inputs
