@@ -235,8 +235,9 @@ def get_args_parser():
 
 def reduce_mean(tensor, nprocs):
     rt = tensor.clone()
-    dist.all_reduce(rt, op=dist.ReduceOp.SUM)
-    rt /= nprocs
+    if dist.is_initialized():
+        dist.all_reduce(rt, op=dist.ReduceOp.SUM)
+        rt /= nprocs
     return rt.item()
 
 def main(args):
