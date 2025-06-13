@@ -183,7 +183,7 @@ class DSNNetV2(nn.Module):
         
         self.dtn = DTNNetV2(args, num_classes=self._num_classes)
         self.rrange = Rearrange('b c t h w -> b t c h w')
-        self.frames_droupout = torch.nn.Dropout2d(p=frames_drop_rate, inplace=False)
+        self.frames_droupout = torch.nn.Dropout1d(p=frames_drop_rate, inplace=False)
 
         # Feature visualization
         self.feat = None

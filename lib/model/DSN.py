@@ -119,7 +119,7 @@ class DSNNet(nn.Module):
         self.build()
         self.dtn = DTNNet(args, num_classes=self._num_classes)
         self.rrange = Rearrange('b c t h w -> b t c h w')
-        self.frames_droupout = torch.nn.Dropout2d(p=frames_drop_rate, inplace=False)
+        self.frames_droupout = torch.nn.Dropout1d(p=frames_drop_rate, inplace=False)
 
         if args.frp:
             self.frp_module = FRP_Module(w=args.w, inplanes=64)
