@@ -58,8 +58,8 @@ def get_args_parser():
     parser.add_argument('--splits', type=str, default='/path/to/NTU-RGBD/dataset/dataset_splits/@CS', help='data dir')
     parser.add_argument('--num-classes', default=None, type=int)
 
-    parser.add_argument('--batch-size', default=16, type=int)
-    parser.add_argument('--test-batch-size', default=32, type=int)
+    parser.add_argument('--batch-size', default=32, type=int)
+    parser.add_argument('--test-batch-size', default=64, type=int)
     parser.add_argument('--num_workers', default=10, type=int)
     parser.add_argument('--epochs', default=100, type=int)
     parser.add_argument('--device', default='cuda',
