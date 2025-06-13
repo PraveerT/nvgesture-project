@@ -361,11 +361,12 @@ class FeatureCapter(nn.Module):
         self.Modalit_depth = DSN(args, num_classes=num_classes)
 
         rgb_checkpoint = args.rgb_checkpoint[args.FusionNet]
-        self.strat_epoch_r, best_acc = load_checkpoint(self.Modalit_rgb, rgb_checkpoint)
-        print(f'Best acc RGB: {best_acc}')
+        load_pretrained_checkpoint(self.Modalit_rgb, rgb_checkpoint)
+        print(f'Loaded RGB pretrained checkpoint: {rgb_checkpoint}')
         depth_checkpoint = args.depth_checkpoint[args.FusionNet]
-        self.strat_epoch_d, best_acc = load_checkpoint(self.Modalit_depth, depth_checkpoint)
-        print(f'Best acc depth: {best_acc}')
+        load_pretrained_checkpoint(self.Modalit_depth, depth_checkpoint)
+        print(f'Loaded depth pretrained checkpoint: {depth_checkpoint}')
+        self.strat_epoch_r, self.strat_epoch_d = 0, 0
 
     def forward(self, rgb, depth):
         self.args.epoch = self.strat_epoch_r - 1
