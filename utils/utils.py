@@ -361,7 +361,7 @@ def Visfeature(args, model, inputs, v_path=None, weight_softmax=None, FusionNet=
         pca_data, targets = model.get_cluster_visualization()
 
         tsne = manifold.TSNE(perplexity=30, n_components=2, init='pca', n_iter=5000)
-        data = pd.DataFrame(pca_data.cpu().numpy())
+        data = pd.DataFrame(pca_data.detach().cpu().numpy())
         data_pca = tsne.fit_transform(data)
 
         data.insert(0, 'label', pd.DataFrame(targets.cpu().numpy()))
