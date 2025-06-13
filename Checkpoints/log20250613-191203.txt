@@ -1,0 +1,5 @@
+2025-06-13 19:12:03,257 Model:DSNV2, Total Categories:25
+2025-06-13 19:12:03,815 Dataset:NvGesture, Modality:rgb
+2025-06-13 19:12:03,819 Dataset:NvGesture, Modality:rgb
+2025-06-13 19:12:03,831 param size = 37.861323MB
+2025-06-13 19:12:03,840 learnable param size = 37.861323MB

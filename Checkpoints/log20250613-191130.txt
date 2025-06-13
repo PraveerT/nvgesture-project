@@ -1,0 +1,2 @@
+2025-06-13 19:11:30,056 Model:DSNV2, Total Categories:25
+2025-06-13 19:11:30,611 Dataset:NvGesture, Modality:rgb

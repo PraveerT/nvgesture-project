@@ -1,0 +1,15 @@
+2025-06-13 19:04:08,319 Model:DSNV2, Total Categories:25
+2025-06-13 19:04:08,895 Dataset:NvGesture, Modality:rgb
+2025-06-13 19:04:08,899 Dataset:NvGesture, Modality:rgb
+2025-06-13 19:04:08,910 param size = 37.861323MB
+2025-06-13 19:04:08,918 learnable param size = 37.861323MB
+2025-06-13 19:04:15,420 Epoch: 1	Mini-Batch: 0001/0085	Total_loss: 69.2114	Acc_sm: 0.0000	Acc_sl: 0.0000	Acc_lm: 0.0000	Acc_all: 0.0000	Acc_adaptive: 0.0000	Acc_adaptive_top5: 0.0000	Infer_Time: 0.7364
+2025-06-13 19:04:41,288 Epoch: 1	Mini-Batch: 0011/0085	Total_loss: 49.7375	Acc_sm: 0.0000	Acc_sl: 0.0000	Acc_lm: 30.3030	Acc_all: 0.0000	Acc_adaptive: 0.0000	Acc_adaptive_top5: 30.3030	Infer_Time: 0.1240
+2025-06-13 19:05:07,974 Epoch: 1	Mini-Batch: 0021/0085	Total_loss: 47.6456	Acc_sm: 0.0000	Acc_sl: 0.0000	Acc_lm: 15.8730	Acc_all: 0.0000	Acc_adaptive: 0.0000	Acc_adaptive_top5: 15.8730	Infer_Time: 0.0944
+2025-06-13 19:05:29,274 Epoch: 1	Mini-Batch: 0031/0085	Total_loss: 59.7057	Acc_sm: 0.0000	Acc_sl: 0.0000	Acc_lm: 10.7527	Acc_all: 0.0000	Acc_adaptive: 0.0000	Acc_adaptive_top5: 10.7527	Infer_Time: 0.0798
+2025-06-13 19:05:50,979 Epoch: 1	Mini-Batch: 0041/0085	Total_loss: 55.1704	Acc_sm: 0.0000	Acc_sl: 0.0000	Acc_lm: 8.1301	Acc_all: 0.0000	Acc_adaptive: 0.0000	Acc_adaptive_top5: 15.8537	Infer_Time: 0.0723
+2025-06-13 19:06:15,823 Epoch: 1	Mini-Batch: 0051/0085	Total_loss: 56.9117	Acc_sm: 0.0000	Acc_sl: 0.0000	Acc_lm: 6.5359	Acc_all: 0.0000	Acc_adaptive: 0.0000	Acc_adaptive_top5: 12.7451	Infer_Time: 0.0700
+2025-06-13 19:06:41,957 Epoch: 1	Mini-Batch: 0061/0085	Total_loss: 57.8100	Acc_sm: 0.0000	Acc_sl: 3.8251	Acc_lm: 5.4645	Acc_all: 0.0000	Acc_adaptive: 3.8251	Acc_adaptive_top5: 14.4809	Infer_Time: 0.0686
+2025-06-13 19:07:06,332 Epoch: 1	Mini-Batch: 0071/0085	Total_loss: 55.6822	Acc_sm: 0.2347	Acc_sl: 4.4601	Acc_lm: 4.6948	Acc_all: 0.2347	Acc_adaptive: 4.4601	Acc_adaptive_top5: 18.7793	Infer_Time: 0.0675
+2025-06-13 19:07:29,139 Epoch: 1	Mini-Batch: 0081/0085	Total_loss: 55.6658	Acc_sm: 4.1152	Acc_sl: 3.9095	Acc_lm: 4.3210	Acc_all: 4.1152	Acc_adaptive: 3.9095	Acc_adaptive_top5: 20.5761	Infer_Time: 0.0658
+2025-06-13 19:07:35,647 Total_loss: 55.8157590305104	Acc_sm: 4.313725550034467	Acc_sl: 3.921568702248966	Acc_lm: 4.313725550034467	Acc_all: 4.313725550034467	Acc_adaptive: 3.921568702248966	Acc_adaptive_top5: 20.784314099480124	Infer_Time: 0.06499018528882192
