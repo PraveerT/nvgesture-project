@@ -60,7 +60,7 @@ def get_args_parser():
 
     parser.add_argument('--batch-size', default=32, type=int)
     parser.add_argument('--test-batch-size', default=64, type=int)
-    parser.add_argument('--num_workers', default=10, type=int)
+    parser.add_argument('--num_workers', default=8, type=int)
     parser.add_argument('--epochs', default=100, type=int)
     parser.add_argument('--device', default='cuda',
                         help='device to use for training / testing')

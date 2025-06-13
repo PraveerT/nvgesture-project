@@ -10,7 +10,7 @@ common:
   dataset: UCF101 #Database name e.g., NTU, THU ...
   init_epochs: 0
   report_freq: 10
-  test_batch_size: 40
+  test_batch_size: 80
   dist: True
   vis_feature: True # Visualization?
 
