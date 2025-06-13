@@ -10,9 +10,9 @@ common:
   DEBUG: False
 
   scheduler:
-    name: cosin
+    name: cosine  # Fixed typo from "cosin"
     patience: 4
-    warm_up_epochs: 3
+    warm_up_epochs: 5  # Increased for more stable training
   loss:
     name: SoftCE
     labelsmooth: True
@@ -45,9 +45,9 @@ fusion:
     cs64: ''
 
 dataset:
-  flip: 0.0
+  flip: 0.3            # Added horizontal flipping for better augmentation
   rotated: 0.5
-  angle: (-20, 20)
+  angle: (-10, 10)     # Reduced rotation range from (-20, 20)
   Blur: False
   resize: (256, 256)
   crop_size: 224
