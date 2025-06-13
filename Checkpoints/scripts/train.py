@@ -58,9 +58,9 @@ def get_args_parser():
     parser.add_argument('--splits', type=str, default='/path/to/NTU-RGBD/dataset/dataset_splits/@CS', help='data dir')
     parser.add_argument('--num-classes', default=None, type=int)
 
-    parser.add_argument('--batch-size', default=16, type=int)
-    parser.add_argument('--test-batch-size', default=32, type=int)
-    parser.add_argument('--num_workers', default=10, type=int)
+    parser.add_argument('--batch-size', default=32, type=int)
+    parser.add_argument('--test-batch-size', default=64, type=int)
+    parser.add_argument('--num_workers', default=8, type=int)
     parser.add_argument('--epochs', default=100, type=int)
     parser.add_argument('--device', default='cuda',
                         help='device to use for training / testing')
@@ -100,7 +100,7 @@ def get_args_parser():
     # Learning rate schedule parameters
     parser.add_argument('--sched', default='cosine', type=str, metavar='SCHEDULER',
                         help='LR scheduler (default: "cosine", "step", "multistep"')
-    parser.add_argument('--lr', type=float, default=1e-2, metavar='LR',
+    parser.add_argument('--lr', type=float, default=5e-3, metavar='LR',
                         help='learning rate (default: 5e-4)')
     parser.add_argument('--lr-noise', type=float, nargs='+', default=None, metavar='pct, pct',
                         help='learning rate noise on/off epoch percentages')

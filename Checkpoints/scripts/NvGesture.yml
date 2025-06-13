@@ -9,10 +9,16 @@ common:
   vis_feature: True # Visualization?
   DEBUG: False
 
+  # Training parameters
+  epochs: 100
+  sample_duration: 32  # Increased from default 16
+  learning_rate: 5e-3  # Match our train.py change
+  batch_size: 32       # Match our train.py change
+
   scheduler:
-    name: cosin
+    name: cosine  # Fixed typo from original "cosin"
     patience: 4
-    warm_up_epochs: 3
+    warm_up_epochs: 3  # Keep original value
   loss:
     name: SoftCE
     labelsmooth: True
@@ -20,35 +26,116 @@ common:
   loss_lamdb: [ 1, 0.5, 0.5, 0.5 ]
 
 model:
-  Network: DSNV2 # e.g., DSNV2 or FusionNet
+  Network: FusionNet # e.g., DSNV2 or FusionNet
+  pretrained: ''  # Will be set via --finetune argument
+  resumelr: ''
+  SYNC_BN: 1
+  recoupling: True
+  knn_attention: 0.7
+  sharpness: True
+  temp: [ 0.04, 0.07 ]  # Keep original values for consistency
+  frp: False  # CRITICAL: Missing parameter
+  SEHeads: 1  # CRITICAL: Missing parameter  
+  N: 6  # CRITICAL: Missing parameter - Number of Transformer Blocks
+  scc_depth: 2  # Spatial Complement Complement depth (for FusionNet)
+  tcc_depth: 2  # Temporal Complement Complement depth (for FusionNet)
+
+fusion:
+  Network: FusionNet
   pretrained: ''
   resumelr: ''
   SYNC_BN: 1
   recoupling: True
   knn_attention: 0.7
   sharpness: True
-  temp: [ 0.04, 0.07 ]
-  frp: False
-  SEHeads: 1
-  N: 6 # Number of Transformer Blocks
-
-fusion:
+  temp: [ 0.05, 0.08 ]
+  scc_depth: 2  # Spatial Complement Complement depth
+  tcc_depth: 2  # Temporal Complement Complement depth
   #-------Used for fusion network----------
   rgb_checkpoint:  
-    cs16: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-16-DTNV2-M/model_best.pth.tar
-    cs32: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-32-DTNV2-M/model_best.pth.tar-per-iso 
-    cs64: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-64-DTNV2-M/model_best.pth.tar-loss-refine 
+    cs16: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs32: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs64: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
   depth_checkpoint:
-    cs16: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-16-DTNV2-K/model_best.pth.tar-per-iso
-    cs32: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-32-DTNV2-K/model_best.pth.tar-per-iso
-    cs64: /mnt/workspace/Code/MotionRGBD-PAMI/Checkpoints/NV-64-DTNV2-K/model_best.pth.tar-pre-89.24 
+    cs16: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs32: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs64: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
 
 dataset:
-  flip: 0.0
-  rotated: 0.5
-  angle: (-20, 20)
+  flip: 0.0  # IMPORTANT: No horizontal flipping for gestures (left/right matters!)
+  rotated: 0.5  # Keep original rotation probability
+  angle: (-20, 20)  # Keep original rotation range
   Blur: False
   resize: (256, 256)
   crop_size: 224
   sample_size: 224
   sample_window: 1
+  
+# Dataset
+DATASET:
+  dataset: NvGesture
+  normalization: imagenet
+  data_dir: dataset/Nvidia/Processed_frames
+  train_split: data/dataset_splits/NvGesture/rgb/train.txt
+  val_split: data/dataset_splits/NvGesture/rgb/valid.txt
+  clip_len: 32
+  frame_interval: 2
+  num_clips: 1
+  test_num_clips: 10
+  num_crops: 1
+  test_num_crops: 3
+  input_size: 224
+  short_side_size: 256
+  new_length: 1
+  filename_tmpl: 'img_{:05d}.jpg'
+  
+# Optimizer  
+OPTIMIZER:
+  optimizer_type: SGD
+  momentum: 0.9
+  weight_decay: 0.0001
+  nesterov: True
+  
+# Learning Rate Scheduler
+LR_SCHEDULER:
+  scheduler_type: cosine
+  base_lr: 0.01
+  
+# Training
+TRAIN:
+  enable: True
+  dataset: NvGesture
+  batch_size: 16
+  eval_period: 1
+  checkpoint_period: 1
+  auto_resume: True
+  
+# Testing  
+TEST:
+  enable: True
+  dataset: NvGesture
+  batch_size: 16
+
+# Data Augmentation (matching official settings)
+DATA:
+  mean: [0.485, 0.456, 0.406]
+  std: [0.229, 0.224, 0.225]
+  train_jitter_scales: [256, 320]
+  train_crop_size: 224
+  test_crop_size: 224
+  input_channel_num: [3]
+  
+# Model specific
+MODEL:
+  arch: DSNV2
+  model_name: DSNV2
+  loss_func: soft_cross_entropy
+  dropout_rate: 0.5
+  num_classes: 25  # NvGesture has 25 classes
+
+# Additional parameters
+AUGMENTATION:
+  distill: 0.2
+  smprob: 0.2
+  mixup: 0.8  
+  shufflemix: 0.3

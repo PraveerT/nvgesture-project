@@ -524,7 +524,8 @@ def train_one_epoch(train_queue, model, criterion, optimizer, epoch, local_rank,
             print_func(log_info)
 
             if args.vis_feature:
-                Visfeature(args, model.module, images, weight_softmax=torch.softmax(logits, dim=-1), FusionNet=True)
+                model_for_vis = model.module if hasattr(model, 'module') else model
+                Visfeature(args, model_for_vis, images, weight_softmax=torch.softmax(logits, dim=-1), FusionNet=True)
         end = time.time()
 
     if local_rank == 0:
@@ -609,7 +610,8 @@ def infer(valid_queue, model, criterion, local_rank, epoch, device, captuer, obt
             log_info.update(dict((name, '{:.4f}'.format(value.avg)) for name, value in meter_dict.items()))
             print_func(log_info)
             if args.vis_feature:
-                Visfeature(args, model.module, images, v_path, torch.softmax(logits, dim=-1), FusionNet=True)
+                model_for_vis = model.module if hasattr(model, 'module') else model
+                Visfeature(args, model_for_vis, images, v_path, torch.softmax(logits, dim=-1), FusionNet=True)
 
     # select best acc output
     acc_list = torch.tensor([meter_dict['Acc_fusion'].avg, meter_dict['Acc_rgbd'].avg])
