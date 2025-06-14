@@ -53,13 +53,13 @@ fusion:
   tcc_depth: 2  # Temporal Complement Complement depth
   #-------Used for fusion network----------
   rgb_checkpoint:  
-    cs16: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
-    cs32: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
-    cs64: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs16: Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs32: Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs64: Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
   depth_checkpoint:
-    cs16: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
-    cs32: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
-    cs64: /notebooks/nvgesture-project/Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs16: Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs32: Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
+    cs64: Checkpoints/NTU-RGBD-32-DTNV2-M-TSM/model_best.pth.tar
 
 dataset:
   flip: 0.0  # IMPORTANT: No horizontal flipping for gestures (left/right matters!)
